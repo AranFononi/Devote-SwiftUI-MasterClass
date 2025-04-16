@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     // MARK: - Property
     @State var task: String = ""
+    private var isButtonDisabled: Bool { task.isEmpty }
     
     // Fetch Data
     @Environment(\.managedObjectContext) private var viewContext
@@ -37,6 +38,8 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+            task = ""
+            hideKeyboard()
         }
     }
     
@@ -68,15 +71,16 @@ struct ContentView: View {
                     
                     Button {
                         addItem()
-                    }label: {
+                    } label: {
                         Spacer()
                         Text("SAVE")
                         Spacer()
                     }
+                    .disabled(isButtonDisabled)
                     .padding()
                     .font(.headline)
                     .foregroundStyle(.white)
-                    .background(Color.pink)
+                    .background(isButtonDisabled ? Color.gray : Color.pink)
                     .clipShape(.rect(cornerRadius: 10))
                 } //: VStack
                 .padding()
@@ -85,9 +89,6 @@ struct ContentView: View {
                         NavigationLink {
                             
                             Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                            
-                            
-                            
                         } label: {
                             VStack(alignment: .leading) {
                                 Text(item.task ?? "")
@@ -108,11 +109,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
                 }
             } //: Toolbar
             Text("Select an item")
