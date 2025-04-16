@@ -25,6 +25,9 @@ struct ContentView: View {
         withAnimation {
             let newItem = Items(context: viewContext)
             newItem.timestamp = Date()
+            newItem.task = task
+            newItem.completion = false
+            newItem.id = UUID()
             
             do {
                 try viewContext.save()
