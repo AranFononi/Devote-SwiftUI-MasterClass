@@ -10,6 +10,7 @@ import CoreData
 
 struct ContentView: View {
     // MARK: - Property
+    @State var task: String = ""
     
     // Fetch Data
     @Environment(\.managedObjectContext) private var viewContext
@@ -53,16 +54,28 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            VStack {
+                VStack(spacing: 16) {
+                    TextField("New Task", text: $task)
+                        .padding()
+                        .background(
+                            Color(UIColor.systemGray6)
+                        )
+                        .clipShape(.rect(cornerRadius: 10))
+                        
+                } //: VStack
+                .padding()
+                List {
+                    ForEach(items) { item in
+                        NavigationLink {
+                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        } label: {
+                            Text(item.timestamp!, formatter: itemFormatter)
+                        }
                     }
-                }
-                .onDelete(perform: deleteItems)
-            } //: List
+                    .onDelete(perform: deleteItems)
+                } //: List
+            } //: VStack
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
