@@ -63,6 +63,18 @@ struct ContentView: View {
                         )
                         .clipShape(.rect(cornerRadius: 10))
                         
+                    Button {
+                        addItem()
+                    }label: {
+                        Spacer()
+                        Text("SAVE")
+                        Spacer()
+                    }
+                    .padding()
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .background(Color.pink)
+                    .clipShape(.rect(cornerRadius: 10))
                 } //: VStack
                 .padding()
                 List {
