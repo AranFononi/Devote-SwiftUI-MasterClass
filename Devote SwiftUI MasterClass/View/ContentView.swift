@@ -65,7 +65,7 @@ struct ContentView: View {
                             Color(UIColor.systemGray6)
                         )
                         .clipShape(.rect(cornerRadius: 10))
-                        
+                    
                     Button {
                         addItem()
                     }label: {
@@ -83,9 +83,21 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         NavigationLink {
+                            
                             Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                            
+                            
+                            
                         } label: {
-                            Text(item.timestamp!, formatter: itemFormatter)
+                            VStack(alignment: .leading) {
+                                Text(item.task ?? "")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                
+                                Text(item.timestamp!, formatter: itemFormatter)
+                                    .font(.footnote)
+                                    .foregroundStyle(.gray)
+                            }
                         }
                     }
                     .onDelete(perform: deleteItems)
