@@ -114,6 +114,9 @@ struct ContentView: View {
                     EditButton()
                 }
             } //: Toolbar
+            .background(
+                backgroundGradient.ignoresSafeArea(.all, edges: .all)
+            )
             Text("Select an item")
         } //: NavigationView
         
