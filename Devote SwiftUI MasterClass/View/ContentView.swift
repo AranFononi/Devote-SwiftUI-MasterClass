@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     // MARK: - Property
     @State var task: String = ""
+    @State private var showNewTaskItem: Bool = false
     
     
     // Fetch Data
@@ -22,8 +23,6 @@ struct ContentView: View {
     private var items: FetchedResults<Items>
     
     // MARK: - Function
-    
-    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
@@ -42,8 +41,31 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // MARK: -  Main View
                 VStack {
+                    // MARK: - Header
+                    Spacer(minLength: 80)
                     
+                    // MARK: - New Task Button
+                    Button {
+                        showNewTaskItem = true
+                    }label: {
+                        Image(systemName: "plus.circle")
+                            .font(.system(size: 30, weight: .semibold, design: .rounded))
+                        Text("New Task")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 15)
+                    .background(
+                        backgroundGradient
+                            .clipShape(.capsule)
+                    )
+                    .shadow(color: .black.opacity(0.25), radius: 8, x: 0, y: 4)
+                    
+                    // MARK: - Tasks
                     List {
                         ForEach(items) { item in
                             NavigationLink {
@@ -72,6 +94,10 @@ struct ContentView: View {
                     .frame(maxWidth: 640)
                 } //: VStack
                 
+                // MARK: - New Task Item
+                if showNewTaskItem {
+                    NewTaskItemView()
+                }
             } //: ZStack
             
             .navigationTitle("Daily Tasks")
