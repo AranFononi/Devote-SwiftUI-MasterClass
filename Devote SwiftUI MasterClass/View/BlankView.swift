@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct BlankView: View {
+    var backroundColor: Color
+    var backgroundOpacity: Double
+    
+    
     var body: some View {
         VStack{
             Spacer()
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-        .background(.black)
-        .opacity(0.25)
+        .background(backroundColor)
+        .opacity(backgroundOpacity)
+        .blendMode(.overlay)
         .ignoresSafeArea(.all, edges: .all)
     }
 }
 
 #Preview {
-    BlankView()
+    BlankView(backroundColor: .black, backgroundOpacity: 0.25)
 }
