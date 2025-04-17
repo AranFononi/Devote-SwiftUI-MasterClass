@@ -59,51 +59,54 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                VStack(spacing: 16) {
-                    TextField("New Task", text: $task)
-                        .padding()
-                        .background(
-                            Color(UIColor.systemGray6)
-                        )
-                        .clipShape(.rect(cornerRadius: 10))
-                    
-                    Button {
-                        addItem()
-                    } label: {
-                        Spacer()
-                        Text("SAVE")
-                        Spacer()
-                    }
-                    .disabled(isButtonDisabled)
-                    .padding()
-                    .font(.headline)
-                    .foregroundStyle(.white)
-                    .background(isButtonDisabled ? Color.gray : Color.pink)
-                    .clipShape(.rect(cornerRadius: 10))
-                } //: VStack
-                .padding()
-                List {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            
-                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        NavigationStack {
+            ZStack {
+                VStack {
+                    VStack(spacing: 16) {
+                        TextField("New Task", text: $task)
+                            .padding()
+                            .background(
+                                Color(UIColor.systemGray6)
+                            )
+                            .clipShape(.rect(cornerRadius: 10))
+                        
+                        Button {
+                            addItem()
                         } label: {
-                            VStack(alignment: .leading) {
-                                Text(item.task ?? "")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
+                            Spacer()
+                            Text("SAVE")
+                            Spacer()
+                        }
+                        .disabled(isButtonDisabled)
+                        .padding()
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                        .background(isButtonDisabled ? Color.gray : Color.pink)
+                        .clipShape(.rect(cornerRadius: 10))
+                    } //: VStack
+                    .padding()
+                    List {
+                        ForEach(items) { item in
+                            NavigationLink {
                                 
-                                Text(item.timestamp!, formatter: itemFormatter)
-                                    .font(.footnote)
-                                    .foregroundStyle(.gray)
+                                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                            } label: {
+                                VStack(alignment: .leading) {
+                                    Text(item.task ?? "")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                    
+                                    Text(item.timestamp!, formatter: itemFormatter)
+                                        .font(.footnote)
+                                        .foregroundStyle(.gray)
+                                }
                             }
                         }
-                    }
-                    .onDelete(perform: deleteItems)
-                } //: List
-            } //: VStack
+                        .onDelete(perform: deleteItems)
+                    } //: List
+                } //: VStack
+                
+            } //: ZStack
             .navigationTitle("Daily Tasks")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -113,6 +116,7 @@ struct ContentView: View {
             } //: Toolbar
             Text("Select an item")
         } //: NavigationView
+        
     }
 }
 
