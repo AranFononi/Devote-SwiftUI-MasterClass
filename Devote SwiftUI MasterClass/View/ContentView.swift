@@ -123,6 +123,9 @@ struct ContentView: View {
                 }
             } //: Toolbar
             .background(
+                BackgroundImageView()
+            )
+            .background(
                 backgroundGradient.ignoresSafeArea(.all, edges: .all)
             )
             
