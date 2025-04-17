@@ -103,15 +103,7 @@ struct ContentView: View {
                                 
                                 Text("Item at \(item.timestamp!, formatter: itemFormatter)")
                             } label: {
-                                VStack(alignment: .leading) {
-                                    Text(item.task ?? "")
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    
-                                    Text(item.timestamp!, formatter: itemFormatter)
-                                        .font(.footnote)
-                                        .foregroundStyle(.gray)
-                                }
+                                ListRowItemView(item: item)
                             }
                         }
                         .onDelete(perform: deleteItems)
