@@ -12,6 +12,7 @@ struct NewTaskItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var task: String = ""
     private var isButtonDisabled: Bool { task.isEmpty }
+    @Binding var isShowing: Bool
     
     private func addItem() {
         withAnimation {
@@ -31,6 +32,7 @@ struct NewTaskItemView: View {
             }
             task = ""
             hideKeyboard()
+            isShowing = false
         }
     }
     
@@ -73,6 +75,6 @@ struct NewTaskItemView: View {
 }
 
 #Preview {
-    NewTaskItemView()
+    NewTaskItemView(isShowing: .constant(true))
         .background(.gray)
 }
