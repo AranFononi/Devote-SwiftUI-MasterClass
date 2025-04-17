@@ -104,9 +104,17 @@ struct ContentView: View {
                         }
                         .onDelete(perform: deleteItems)
                     } //: List
+                    .listStyle(InsetGroupedListStyle())
+                    .listRowBackground(Color.clear)
+                    .background(Color.clear)
+                    .scrollContentBackground(.hidden)
+                    .shadow(color: .black.opacity(0.3), radius: 12)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: 640)
                 } //: VStack
                 
             } //: ZStack
+            
             .navigationTitle("Daily Tasks")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -117,8 +125,12 @@ struct ContentView: View {
             .background(
                 backgroundGradient.ignoresSafeArea(.all, edges: .all)
             )
-            Text("Select an item")
+            
+            
         } //: NavigationView
+        
+        
+        
         
     }
 }
