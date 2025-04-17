@@ -54,7 +54,7 @@ struct ContentView: View {
                             .font(.system(size: 30, weight: .semibold, design: .rounded))
                         Text("New Task")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
-                            
+                        
                     }
                     .foregroundStyle(.white)
                     .padding(.horizontal, 20)
@@ -96,10 +96,15 @@ struct ContentView: View {
                 
                 // MARK: - New Task Item
                 if showNewTaskItem {
+                    BlankView()
+                        .onTapGesture {
+                            withAnimation {
+                                showNewTaskItem = false
+                            }
+                        }
                     NewTaskItemView()
                 }
             } //: ZStack
-            
             .navigationTitle("Daily Tasks")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
