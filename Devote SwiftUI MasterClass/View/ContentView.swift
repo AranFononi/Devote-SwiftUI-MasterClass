@@ -12,7 +12,7 @@ struct ContentView: View {
     // MARK: - Property
     @State var task: String = ""
     @State private var showNewTaskItem: Bool = false
-    
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     // Fetch Data
     @Environment(\.managedObjectContext) private var viewContext
@@ -44,6 +44,37 @@ struct ContentView: View {
                 // MARK: -  Main View
                 VStack {
                     // MARK: - Header
+                    HStack(spacing: 10) {
+                        // Title
+                        Text("Devote")
+                            .font(.system(.largeTitle, design: .rounded))
+                            .fontWeight(.heavy)
+                            .padding(.leading, 4)
+                        
+                        Spacer()
+                        // Edit Button
+                        EditButton()
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .frame(minWidth: 70, minHeight: 24)
+                            .background(
+                                Capsule().stroke(.white, lineWidth: 2)
+                            )
+                        
+                        // Color Scheme Button
+                        Button {
+                            isDarkMode.toggle()
+                        } label: {
+                            Image(systemName: isDarkMode ? "moon.circle.fill" : "moon.circle")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .font(.system(.title, design: .rounded))
+                        }
+                        
+                    } //: HStack
+                    .padding()
+                    .foregroundStyle(.white)
+                    
+                    
                     Spacer(minLength: 80)
                     
                     // MARK: - New Task Button
@@ -105,13 +136,7 @@ struct ContentView: View {
                     NewTaskItemView(isShowing: $showNewTaskItem)
                 }
             } //: ZStack
-            .navigationTitle("Daily Tasks")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-            } //: Toolbar
+            .toolbar(.hidden)
             .background(
                 BackgroundImageView()
             )
