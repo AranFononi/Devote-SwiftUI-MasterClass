@@ -103,12 +103,7 @@ struct ContentView: View {
                     // MARK: - Tasks
                     List {
                         ForEach(items) { item in
-                            NavigationLink {
-                                
-                                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                            } label: {
-                                ListRowItemView(item: item)
-                            }
+                            ListRowItemView(item: item)
                         }
                         .onDelete(perform: deleteItems)
                     } //: List

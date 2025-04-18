@@ -33,9 +33,6 @@ struct Provider: TimelineProvider {
         completion(timeline)
     }
 
-//    func relevances() async -> WidgetRelevances<Void> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
 }
 
 struct SimpleEntry: TimelineEntry {
@@ -45,15 +42,54 @@ struct SimpleEntry: TimelineEntry {
 
 struct DevoteWidgetEntryView : View {
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var widgetFamily
+    var fontStyle: Font {
+        if widgetFamily == .systemSmall {
+            return .system(.footnote, design: .rounded)
+        } else {
+            return .system(.headline, design: .rounded)
+        }
+    }
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
-        }
+        GeometryReader { geometry in
+            ZStack {
+                
+                Image("rocket-small")
+                    .resizable()
+                    .scaledToFit()
+                
+                Image("logo")
+                    .resizable()
+                    .frame(width: widgetFamily != .systemSmall ? 56 : 36
+                           , height: widgetFamily != .systemSmall ? 56 : 36)
+                    .offset(x: (geometry.size.width / 2) - 20, y: (geometry.size.height / -2) + 20)
+                    .padding(.top, widgetFamily != .systemSmall ? 32 : 12)
+                    .padding(.trailing, widgetFamily != .systemSmall ? 32 : 12)
+                
+                HStack {
+                    Text("Just Do It")
+                        .foregroundStyle(.white)
+                        .font(fontStyle)
+                        .fontWeight(.bold)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(
+                            .black.opacity(0.5)
+                            .blendMode(.overlay)
+                        )
+                        .clipShape(.capsule)
+                    
+                    if widgetFamily != .systemSmall {
+                        Spacer()
+                    }
+                } //: HStack
+                .padding()
+                .offset(y: (geometry.size.height / 2) - 12)
+                
+            } //: ZStack
+            
+        } //: Geometry
     }
 }
 
@@ -64,15 +100,16 @@ struct DevoteWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
                 DevoteWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
+                    .containerBackground(for: .widget) {
+                                backgroundGradient
+                            }
             } else {
                 DevoteWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
+                    .background(backgroundGradient)
             }
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Devote Launcher")
+        .description("This is an example widget for the personal task manager app.")
     }
 }
 

@@ -12,6 +12,5 @@ import SwiftUI
 struct DevoteWidgetBundle: WidgetBundle {
     var body: some Widget {
         DevoteWidget()
-        DevoteWidgetLiveActivity()
     }
 }

@@ -51,6 +51,14 @@
 			);
 			target = A42BA8EC2DB25E810076FC97 /* DevoteWidgetExtension */;
 		};
+		A42BA9062DB261DE0076FC97 /* Exceptions for "Devote SwiftUI MasterClass" folder in "DevoteWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				Utility/Constant.swift,
+			);
+			target = A42BA8EC2DB25E810076FC97 /* DevoteWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -64,6 +72,9 @@
 		};
 		A4C7CA872DAFB6BC00F8BD00 /* Devote SwiftUI MasterClass */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A42BA9062DB261DE0076FC97 /* Exceptions for "Devote SwiftUI MasterClass" folder in "DevoteWidgetExtension" target */,
+			);
 			path = "Devote SwiftUI MasterClass";
 			sourceTree = "<group>";
 		};
